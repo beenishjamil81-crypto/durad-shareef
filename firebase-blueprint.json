@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "Recitation": {
+      "title": "Recitation",
+      "description": "A submitted count of Durood Shareef recitations by a person",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated user identifier of the submitter"
+        },
+        "userName": {
+          "type": "string",
+          "description": "Name of the person who recited Durood Shareef"
+        },
+        "count": {
+          "type": "integer",
+          "description": "Number of Durood Shareef recited in this entry"
+        },
+        "duroodType": {
+          "type": "string",
+          "description": "Type of Durood recited (e.g. Durood Ibrahimi, Sallallahu Alayhi Wasallam)"
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional dedication, intention, or note"
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Public visibility flag for synchronization and community progress tracking"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of when the count was submitted"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the last update"
+        }
+      },
+      "required": ["userId", "userName", "count", "duroodType", "isPublic", "createdAt"]
+    },
+    "GlobalSummary": {
+      "title": "GlobalSummary",
+      "description": "Aggregated statistics for community-wide Durood Shareef progress",
+      "type": "object",
+      "properties": {
+        "totalCount": {
+          "type": "integer",
+          "description": "Total cumulative count of all Durood Shareef recitations"
+        },
+        "totalSubmissions": {
+          "type": "integer",
+          "description": "Total number of recitation submissions"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when total was last updated"
+        }
+      },
+      "required": ["totalCount", "totalSubmissions", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/recitations/{recitationId}": {
+      "schema": "Recitation",
+      "description": "Collection of all submitted Durood Shareef counts from all persons across devices"
+    },
+    "/summary/{summaryId}": {
+      "schema": "GlobalSummary",
+      "description": "Single global summary document (id: 'global') tracking community grand total"
+    }
+  }
+}
